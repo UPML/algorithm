@@ -23,12 +23,14 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
         int parent;
         char parenChar;
         int sufLink;
+        int sufLinkAnswer;
         ArrayList<Integer> go = new ArrayList<Integer>();
         public Integer numberOfTemplate = -1;
 
         public vertex(Integer parentTmp, Integer sufLinkTmp) {
             parent = parentTmp;
             sufLink = sufLinkTmp;
+            sufLinkAnswer = -1;
             for (int i = 0; i < 255; ++i) {
                 go.add(i, -1);
             }
@@ -56,6 +58,16 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
                 vertexes.get(v).sufLink = nextStep;
             }
         return vertexes.get(v).sufLink;
+    }
+
+    private int getAnswerLink(int v) {
+        if (vertexes.get(v).leaf) {
+            return v;
+        }
+        if (v == 0 || vertexes.get(v).parent == 0) {
+            return 0;
+        }
+        return getAnswerLink(vertexes.get(v).sufLink);
     }
 
     private int go(int v, char c) {
@@ -102,6 +114,12 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
 
     private ArrayList<Pair<Integer, Integer>> answer(ICharStream stream) {
         int currentVertex = 0;
+        for (int i = 1; i < size; ++i) {
+            get_link(i);
+        }
+        for (int i = 1; i < size; ++i) {
+            vertexes.get(i).sufLinkAnswer = getAnswerLink(vertexes.get(i).sufLink);
+        }
         ArrayList<Pair<Integer, Integer>> answer = new ArrayList<Pair<Integer, Integer>>();
         int alreadyRead = 0;
         while (!stream.IsEmpty()) {
@@ -109,15 +127,11 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
             currentVertex = go(currentVertex, currentElement);
             if (currentVertex != -1) {
                 int tmp = currentVertex;
-                while (tmp != 0) {
+                while (tmp != 0 && tmp != -1) {
                     if (vertexes.get(tmp).leaf) {
                         answer.add(new Pair<Integer, Integer>(vertexes.get(tmp).numberOfTemplate, alreadyRead));
                     }
-                    if (get_link(tmp) != -1) {
-                        tmp = vertexes.get(tmp).sufLink;
-                    } else {
-                        tmp = 0;
-                    }
+                    tmp = vertexes.get(tmp).sufLinkAnswer;
                 }
             } else {
                 currentVertex = 0;

@@ -47,7 +47,7 @@ public class testStaticTemplateMatcher {
 
     @Test
     public void largeRandomTest() {
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 1000; ++i) {
             Map<String, Integer> alreadyExistTemplate = new HashMap<String, Integer>();
             ArrayList<String> templates = new ArrayList<String>();
             for (int j = 0; j < 100; ++j) {

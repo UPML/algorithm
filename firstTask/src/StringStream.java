@@ -9,9 +9,9 @@ public class StringStream implements ICharStream {
     private int currentIndex;
     private String currentString;
 
-    public StringStream(String s) {
+    public StringStream(String string) {
         currentIndex = 0;
-        currentString = s;
+        currentString = string;
     }
 
     @Override
