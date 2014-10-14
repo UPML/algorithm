@@ -10,9 +10,10 @@ public class RandomStringStream implements ICharStream {
     private int currentIndex;
     private String currentString;
 
-    public String getString(){
+    public String getString() {
         return currentString;
     }
+
     public RandomStringStream(Integer numberOfLetter, Integer length) {
         currentIndex = 0;
         currentString = RandomString(numberOfLetter, length);
@@ -20,14 +21,13 @@ public class RandomStringStream implements ICharStream {
 
     private String RandomString(Integer numberOfLetter, Integer length) {
         String s = "";
-        if(numberOfLetter > 255 - 31){
+        if (numberOfLetter > 255 - 31) {
             System.err.println("numberOfLetter is excessive");
             throw new ExceptionInInitializerError();
         }
         Random random = new Random();
-        for(int i = 0; i < length; ++i)
-        {
-            int p = Math.abs(random.nextInt() % (numberOfLetter)) + 32;
+        for (int i = 0; i < length; ++i) {
+            int p = Math.abs(random.nextInt() % (numberOfLetter)) + 'a';///+ 32
             s += (char) p;
         }
         return s;

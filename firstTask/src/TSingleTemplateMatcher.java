@@ -34,6 +34,7 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
             prefixFunctionForTemplate.add(i, j);
         }
     }
+
     @Override
     public int AddTemplate(String templateTmp) {
         if (templateTmp == null || templateTmp.isEmpty()) {
