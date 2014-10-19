@@ -27,26 +27,6 @@ public class testStaticTemplateMatcher {
         tested(new String[]{"aba", "ab", "abab", "bab"}, "abacabadabacadaba");
     }
 
-    @Test(expected = KeyAlreadyExistsException.class)
-    public void testExceptionAlreadyExistStatic(){
-        TStaticTemplateMatcher staticTemplateMatcher = new TStaticTemplateMatcher();
-        staticTemplateMatcher.AddTemplate("a");
-        staticTemplateMatcher.AddTemplate("a");
-    }
-
-    @Test(expected = KeyAlreadyExistsException.class)
-    public void testExceptionAlreadyExistNaive(){
-        TStaticTemplateMatcher staticTemplateMatcher = new TStaticTemplateMatcher();
-        staticTemplateMatcher.AddTemplate("a");
-        staticTemplateMatcher.AddTemplate("a");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testExceptionAddEmptyToStatic(){
-        TStaticTemplateMatcher staticTemplateMatcher = new TStaticTemplateMatcher();
-        staticTemplateMatcher.AddTemplate("");
-    }
-
     @Test
     public void simpleRandomTest() {
         for (int i = 0; i < 1000; ++i) {
@@ -68,7 +48,7 @@ public class testStaticTemplateMatcher {
         for (int i = 0; i < 100; ++i) {
             Map<String, Integer> alreadyExistTemplate = new HashMap<String, Integer>();
             ArrayList<String> templates = new ArrayList<String>();
-            for (int j = 0; j < 100; ++j) {
+            for (int j = 0; j < 50; ++j) {
                 String s = new RandomStringStream((i + j + 31) % 31 + 2, (i + j + 100) % 100 + 1, i * 1000 + j).getString();
                 if(!alreadyExistTemplate.containsKey(s)){
                     templates.add(s);

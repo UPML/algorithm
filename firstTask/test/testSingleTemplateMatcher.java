@@ -1,12 +1,8 @@
 import javafx.util.Pair;
-import jdk.nashorn.internal.ir.annotations.Ignore;
-import org.junit.Assert;
 import org.junit.Test;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.SortedMap;
 
 import static org.junit.Assert.*;
 
@@ -35,37 +31,6 @@ public class testSingleTemplateMatcher {
             tested((new RandomStringStream(20, 30, i)).getString(), new RandomStringStream(20, 10000, i * i + 2).getString());
             testedAppend((new RandomStringStream(20, 30, i * 3)).getString(), new RandomStringStream(20, 10000, i * i * 21).getString());
         }
-    }
-
-    @Test(expected = ExceptionInInitializerError.class)
-    public void testExceptionAppendToEmpty(){
-        TSingleTemplateMatcher single = new TSingleTemplateMatcher();
-        single.AppendCharToTemplate('z');
-    }
-
-    @Test(expected = ExceptionInInitializerError.class)
-    public void testExceptionWrongAppend(){
-        TSingleTemplateMatcher single = new TSingleTemplateMatcher();
-        single.AppendCharToTemplate((char) 20);
-    }
-
-    @Test(expected = ExceptionInInitializerError.class)
-    public void testExceptionAddEmptyToSingle(){
-        TSingleTemplateMatcher single = new TSingleTemplateMatcher();
-        single.AddTemplate("");
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void testExceptionAddEmptyToNaive(){
-        TNaiveTemplateMatcher naive = new TNaiveTemplateMatcher();
-        naive.AddTemplate("");
-    }
-
-    @Test(expected = KeyAlreadyExistsException.class)
-    public void testExceptionAlreadyExistNaive(){
-        TNaiveTemplateMatcher naive = new TNaiveTemplateMatcher();
-        naive.AddTemplate("a");
-        naive.AddTemplate("a");
     }
 
     private void testedAppend(String template, String text) {

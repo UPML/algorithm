@@ -29,4 +29,28 @@ public class TestExceptions {
         naive.AddTemplate("a");
     }
 
+    @Test(expected = KeyAlreadyExistsException.class)
+    public void testExceptionAlreadyExistStatic(){
+        TStaticTemplateMatcher staticTemplateMatcher = new TStaticTemplateMatcher();
+        staticTemplateMatcher.AddTemplate("a");
+        staticTemplateMatcher.AddTemplate("a");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testExceptionAddEmptyToStatic(){
+        TStaticTemplateMatcher staticTemplateMatcher = new TStaticTemplateMatcher();
+        staticTemplateMatcher.AddTemplate("");
+    }
+
+    @Test(expected = ExceptionInInitializerError.class)
+    public void testExceptionAppendToEmpty(){
+        TSingleTemplateMatcher single = new TSingleTemplateMatcher();
+        single.AppendCharToTemplate('z');
+    }
+
+    @Test(expected = ExceptionInInitializerError.class)
+    public void testExceptionWrongAppend(){
+        TSingleTemplateMatcher single = new TSingleTemplateMatcher();
+        single.AppendCharToTemplate((char) 20);
+    }
 }

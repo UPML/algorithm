@@ -53,12 +53,16 @@ public class TNaiveTemplateMatcher implements MetaTemplateMatcher {
 
                 String currentStringInStringBuilder = builderForTemplatesCollections[i].toString();
 
-                if(arrayTemplates.get(i).equals(currentStringInStringBuilder)){
+                if(MyEqualsForString(arrayTemplates.get(i), currentStringInStringBuilder)){
                     answer.add(new Pair<Integer, Integer>(i, alreadyReaded - 1));
                 }
 
             }
         }
+    }
+
+    public boolean MyEqualsForString(String template, String currentStringInStringBuilder) {
+        return  template.equals(currentStringInStringBuilder);
     }
 
     private void write(ArrayList<Pair<Integer, Integer>> answer) {
