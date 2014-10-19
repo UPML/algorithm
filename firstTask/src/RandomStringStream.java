@@ -14,20 +14,20 @@ public class RandomStringStream implements ICharStream {
         return currentString;
     }
 
-    public RandomStringStream(Integer numberOfLetter, Integer length) {
+    public RandomStringStream(Integer numberOfLetter, Integer length, Integer paramentForRandom) {
         currentIndex = 0;
-        currentString = RandomString(numberOfLetter, length);
+        currentString = RandomString(numberOfLetter, length, paramentForRandom);
     }
 
-    private String RandomString(Integer numberOfLetter, Integer length) {
+    private String RandomString(Integer numberOfLetter, Integer length, Integer paramentForRandom) {
         String s = "";
         if (numberOfLetter > 255 - 31) {
             System.err.println("numberOfLetter is excessive");
             throw new ExceptionInInitializerError();
         }
-        Random random = new Random();
+        Random random = new Random(paramentForRandom);
         for (int i = 0; i < length; ++i) {
-            int p = Math.abs(random.nextInt() % (numberOfLetter)) + 'a';///+ 32
+            int p = Math.abs(random.nextInt(numberOfLetter)) + 'a';///+ 32
             s += (char) p;
         }
         return s;
@@ -45,11 +45,6 @@ public class RandomStringStream implements ICharStream {
             throw new NoSuchElementException();
         }
 
-    }
-
-    @Override
-    public ICharStream clone(ICharStream f) {
-        return new StringStream(currentString);
     }
 
     @Override

@@ -34,44 +34,42 @@ public class testStaticTemplateMatcher {
             Map<String, Integer> alreadyExistTemplate = new HashMap<String, Integer>();
             ArrayList<String> templates = new ArrayList<String>();
             for (int j = 0; j < 10; ++j) {
-                Random random = new Random();
-                String s = new RandomStringStream(2, random.nextInt(10) + 1).getString();
+                String s = new RandomStringStream(2, j + 10, i + j).getString();
                 if(!alreadyExistTemplate.containsKey(s)){
                     templates.add(s);
                     alreadyExistTemplate.put(s, 1);
                 }
             }
-            testedList(templates, new RandomStringStream(2, 100).getString());
+            testedList(templates, new RandomStringStream(2, 100, i).getString());
         }
     }
 
     @Test
     public void largeRandomTest() {
-        for (int i = 0; i < 1000; ++i) {
+        for (int i = 0; i < 100; ++i) {
             Map<String, Integer> alreadyExistTemplate = new HashMap<String, Integer>();
             ArrayList<String> templates = new ArrayList<String>();
             for (int j = 0; j < 100; ++j) {
-                Random random = new Random();
-                String s = new RandomStringStream(random.nextInt(31) + 2, random.nextInt(100) + 1).getString();
+                String s = new RandomStringStream((i + j + 31) % 31 + 2, (i + j + 100) % 100 + 1, i + j).getString();
                 if(!alreadyExistTemplate.containsKey(s)){
                     templates.add(s);
                     alreadyExistTemplate.put(s, 1);
                 }
             }
-            testedList(templates, new RandomStringStream(2, 10000).getString());
+            testedList(templates, new RandomStringStream(2, 10000, i).getString());
         }
     }
 
     private void testedList(ArrayList<String> templates, String text) {
         TNaiveTemplateMatcher naive = new TNaiveTemplateMatcher();
         TStaticTemplateMatcher staticTemplateMatcher = new TStaticTemplateMatcher();
-        System.out.println("\nNew test");
+//        System.out.println("\nNew test");
         for (String s : templates) {
-            System.out.println("template " + s);
+//            System.out.println("template " + s);
             naive.AddTemplate(s);
             staticTemplateMatcher.AddTemplate(s);
         }
-        System.out.println("text   " + text);
+//        System.out.println("text   " + text);
         checkAnswer(naive.MatchStram(new StringStream(text)), staticTemplateMatcher.MatchStram(new StringStream(text)));
 
     }
@@ -79,13 +77,13 @@ public class testStaticTemplateMatcher {
     private void tested(String[] template, String text) {
         TNaiveTemplateMatcher naive = new TNaiveTemplateMatcher();
         TStaticTemplateMatcher staticTemplateMatcher = new TStaticTemplateMatcher();
-        System.out.println("\nNew test");
+//        System.out.println("\nNew test");
         for (String s : template) {
-            System.out.println("template " + s);
+//            System.out.println("template " + s);
             naive.AddTemplate(s);
             staticTemplateMatcher.AddTemplate(s);
         }
-        System.out.println("text   " + text);
+//        System.out.println("text   " + text);
         checkAnswer(naive.MatchStram(new StringStream(text)), staticTemplateMatcher.MatchStram(new StringStream(text)));
     }
 

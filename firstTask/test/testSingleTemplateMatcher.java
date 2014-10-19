@@ -24,16 +24,16 @@ public class testSingleTemplateMatcher {
     @Test
     public void  simpleRandomTest(){
         for(int i = 0; i < 100; ++i){
-            tested((new RandomStringStream(2, 3)).getString(), new RandomStringStream(2, 100).getString());
+            tested((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 100, i * 2).getString());
 //            System.out.println(new RandomStringStream(10, 100).getString());
         }
     }
 
-    @Ignore
+    @Test
     public void largeRandomTest(){
         for(int i = 0; i < 10; ++i){
-            tested((new RandomStringStream(20, 30)).getString(), new RandomStringStream(20, 100000).getString());
-            testedAppend((new RandomStringStream(20, 30)).getString(), new RandomStringStream(20, 100000).getString());
+            tested((new RandomStringStream(20, 30, i)).getString(), new RandomStringStream(20, 10000, i * i + 2).getString());
+            testedAppend((new RandomStringStream(20, 30, i * 3)).getString(), new RandomStringStream(20, 10000, i * i * 21).getString());
         }
     }
 

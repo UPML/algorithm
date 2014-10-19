@@ -29,11 +29,6 @@ public class StringStream implements ICharStream {
     }
 
     @Override
-    public ICharStream clone(ICharStream f) {
-        return new StringStream(currentString);
-    }
-
-    @Override
     public boolean IsEmpty() {
         return currentIndex >= currentString.length();
     }
