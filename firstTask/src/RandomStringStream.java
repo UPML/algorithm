@@ -30,7 +30,7 @@ public class RandomStringStream implements ICharStream {
             int p = Math.abs(random.nextInt(numberOfLetter)) + 'a';///+ 32
             s += (char) p;
         }
-       return s;
+        return s;
     }
 
     @Override

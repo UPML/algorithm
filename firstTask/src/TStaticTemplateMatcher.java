@@ -117,7 +117,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
             get_link(i);
         }
         for (int i = 1; i < size; ++i) {
-            if(vertexes.get(i).sufLinkAnswer == -1) {
+            if (vertexes.get(i).sufLinkAnswer == -1) {
                 vertexes.get(i).sufLinkAnswer = getAnswerLink(vertexes.get(i).sufLink);
             }
         }
@@ -141,7 +141,6 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
         }
         return answer;
     }
-
 
 
 }
