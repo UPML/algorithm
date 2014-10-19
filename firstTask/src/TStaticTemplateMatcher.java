@@ -2,8 +2,6 @@ import javafx.util.Pair;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by kagudkov on 12.10.14.
@@ -11,7 +9,7 @@ import java.util.Map;
 public class TStaticTemplateMatcher implements MetaTemplateMatcher {
 
     private int numberOfTemplate = 0;
-    Map<String, Integer> alreadyExist = new HashMap<String, Integer>();
+    ArrayList<String> alreadyExist = new ArrayList<String>();
 
     public TStaticTemplateMatcher() {
         init();
@@ -84,9 +82,10 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
 
     @Override
     public int AddTemplate(String template) {
-        if (alreadyExist.containsKey(template)) {
+        if (alreadyExist.contains(template)) {
             throw new KeyAlreadyExistsException();
         }
+        alreadyExist.add(template);
         if (template == null || template.isEmpty()) {
             throw new NullPointerException();
         }
@@ -140,14 +139,9 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
             }
             ++alreadyRead;
         }
-//        writeAnswer(answer);
         return answer;
     }
 
-    private void writeAnswer(ArrayList<Pair<Integer, Integer>> answer) {
-        for (int i = 0; i < answer.size(); ++i) {
-            System.out.println(answer.get(i));
-        }
-    }
+
 
 }

@@ -14,22 +14,23 @@ public class RandomStringStream implements ICharStream {
         return currentString;
     }
 
-    public RandomStringStream(Integer numberOfLetter, Integer length, Integer paramentForRandom) {
+    public RandomStringStream(Integer numberOfLetter, Integer length, Integer parametrForRandom) {
         currentIndex = 0;
-        currentString = RandomString(numberOfLetter, length, paramentForRandom);
+        currentString = RandomString(numberOfLetter, length, parametrForRandom);
     }
 
-    private String RandomString(Integer numberOfLetter, Integer length, Integer paramentForRandom) {
+    private String RandomString(Integer numberOfLetter, Integer length, Integer parametrForRandom) {
         String s = "";
         if (numberOfLetter > 255 - 31) {
             System.err.println("numberOfLetter is excessive");
             throw new ExceptionInInitializerError();
         }
-        Random random = new Random(paramentForRandom);
+        Random random = new Random(parametrForRandom);
         for (int i = 0; i < length; ++i) {
             int p = Math.abs(random.nextInt(numberOfLetter)) + 'a';///+ 32
             s += (char) p;
         }
+//        System.out.println(s);
         return s;
     }
 
