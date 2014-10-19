@@ -23,7 +23,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
         int parent;
         char parenChar;
         int sufLink;
-        int sufLinkAnswer;
+        int sufLinkAnswer = -1;
         ArrayList<Integer> go = new ArrayList<Integer>();
         public Integer numberOfTemplate = -1;
 
@@ -118,7 +118,9 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
             get_link(i);
         }
         for (int i = 1; i < size; ++i) {
-            vertexes.get(i).sufLinkAnswer = getAnswerLink(vertexes.get(i).sufLink);
+            if(vertexes.get(i).sufLinkAnswer == -1) {
+                vertexes.get(i).sufLinkAnswer = getAnswerLink(vertexes.get(i).sufLink);
+            }
         }
         ArrayList<Pair<Integer, Integer>> answer = new ArrayList<Pair<Integer, Integer>>();
         int alreadyRead = 0;
@@ -138,7 +140,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
             }
             ++alreadyRead;
         }
-        writeAnswer(answer);
+//        writeAnswer(answer);
         return answer;
     }
 
