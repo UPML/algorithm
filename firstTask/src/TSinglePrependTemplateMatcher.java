@@ -28,7 +28,7 @@ public class TSinglePrependTemplateMatcher extends TSingleTemplateMatcher {
         int alreadyRead = 0;
         int oldPrefixFunction = 0;
         while (!stream.IsEmpty()) {
-            if(alreadyCountPrefixFunction < template.length()){
+            if (alreadyCountPrefixFunction < template.length()) {
                 calculatePrefixForAppend(template, alreadyCountPrefixFunction);
                 ++alreadyCountPrefixFunction;
             }

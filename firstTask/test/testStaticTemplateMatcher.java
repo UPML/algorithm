@@ -1,5 +1,6 @@
 import javafx.util.Pair;
 import org.junit.Test;
+
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -29,8 +30,8 @@ public class testStaticTemplateMatcher {
             Map<String, Integer> alreadyExistTemplate = new HashMap<String, Integer>();
             ArrayList<String> templates = new ArrayList<String>();
             for (int j = 0; j < 10; ++j) {
-                String s = new RandomStringStream(2, j + 10, i*1000 + j).getString();
-                if(!alreadyExistTemplate.containsKey(s)){
+                String s = new RandomStringStream(2, j + 10, i * 1000 + j).getString();
+                if (!alreadyExistTemplate.containsKey(s)) {
                     templates.add(s);
                     alreadyExistTemplate.put(s, 1);
                 }
@@ -46,7 +47,7 @@ public class testStaticTemplateMatcher {
             ArrayList<String> templates = new ArrayList<String>();
             for (int j = 0; j < 50; ++j) {
                 String s = new RandomStringStream((i + j + 31) % 31 + 2, (i + j + 100) % 100 + 1, i * 1000 + j).getString();
-                if(!alreadyExistTemplate.containsKey(s)){
+                if (!alreadyExistTemplate.containsKey(s)) {
                     templates.add(s);
                     alreadyExistTemplate.put(s, 1);
                 }

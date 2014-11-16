@@ -18,21 +18,21 @@ public class testSingleTemplateMatcher {
     }
 
     @Test
-    public void  simpleRandomTest(){
+    public void simpleRandomTest() {
         testedPrepend((new RandomStringStream(2, 3, 1)).getString(), new RandomStringStream(2, 0, 2).getString());
         testedPrepend((new RandomStringStream(2, 3, 1)).getString(), new RandomStringStream(2, 1, 2).getString());
         testedPrepend((new RandomStringStream(2, 3, 1)).getString(), new RandomStringStream(2, 2, 2).getString());
         testedPrepend((new RandomStringStream(2, 3, 1)).getString(), new RandomStringStream(2, 3, 2).getString());
-        for(int i = 0; i < 10000; ++i){
+        for (int i = 0; i < 10000; ++i) {
             tested((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 100, i * 2).getString());
             testedPrepend((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 100, i * 2).getString());
-       }
+        }
     }
 
     private void testedPrepend(String template, String text) {
 //        System.out.println(template);
 //        System.out.println(text);
-        TSingleTemplateMatcher singleTemplateMatcher  = new TSingleTemplateMatcher();
+        TSingleTemplateMatcher singleTemplateMatcher = new TSingleTemplateMatcher();
         TSinglePrependTemplateMatcher tSinglePrependTemplateMatcher = new TSinglePrependTemplateMatcher();
         singleTemplateMatcher.AddTemplate(template);
         tSinglePrependTemplateMatcher.AddTemplate(template);
@@ -50,8 +50,8 @@ public class testSingleTemplateMatcher {
     }
 
     @Test
-    public void largeRandomTest(){
-        for(int i = 0; i < 10; ++i){
+    public void largeRandomTest() {
+        for (int i = 0; i < 10; ++i) {
             tested((new RandomStringStream(20, 30, i)).getString(), new RandomStringStream(20, 10000, i * i + 2).getString());
             testedAppend((new RandomStringStream(20, 30, i * 3)).getString(), new RandomStringStream(20, 10000, i * i * 21).getString());
         }
@@ -79,7 +79,7 @@ public class testSingleTemplateMatcher {
 
     private void checkAnswer(ArrayList<Pair<Integer, Integer>> naiveAnswer, ArrayList<Pair<Integer, Integer>> singleAnswer) {
         assertEquals(naiveAnswer.size(), singleAnswer.size());
-        for(int i = 0; i < naiveAnswer.size(); ++i){
+        for (int i = 0; i < naiveAnswer.size(); ++i) {
             assertEquals(naiveAnswer.get(i), singleAnswer.get(i));
         }
     }

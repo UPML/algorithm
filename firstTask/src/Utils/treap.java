@@ -5,13 +5,15 @@ package Utils;
  */
 public class treap {
 
-    private class indexForString{
+    private class indexForString {
         int numberOfTemplate, lengthOfSuffix;
+
         public indexForString(int numberOfTemplateTmp, int lengthOfSuffixTmp) {
             numberOfTemplate = numberOfTemplateTmp;
             lengthOfSuffix = lengthOfSuffixTmp;
         }
     }
+
     indexForString currentIndex;
     int y;
     treap left, right, father;

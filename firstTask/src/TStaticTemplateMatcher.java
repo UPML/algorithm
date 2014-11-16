@@ -111,6 +111,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
         countAnswer(stream);
         return getAnswer();
     }
+
     private int currentVertex;
     private ArrayList<Pair<Integer, Integer>> answer = new ArrayList<Pair<Integer, Integer>>();
     private int alreadyRead;
@@ -121,7 +122,8 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
             nextChar(stream.GetChar());
         }
     }
-    protected ArrayList<Pair<Integer, Integer>> getAnswer(){
+
+    protected ArrayList<Pair<Integer, Integer>> getAnswer() {
         return answer;
     }
 

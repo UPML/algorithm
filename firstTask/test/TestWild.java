@@ -18,15 +18,15 @@ public class TestWild {
     }
 
     @Test
-    public void  simpleRandomTest(){
-        for(int i = 0; i < 100; ++i){
+    public void simpleRandomTest() {
+        for (int i = 0; i < 100; ++i) {
             tested((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 100, i * 2).getString());
-       }
+        }
     }
 
     @Test
-    public void largeRandomTest(){
-        for(int i = 0; i < 10; ++i){
+    public void largeRandomTest() {
+        for (int i = 0; i < 10; ++i) {
             tested((new RandomStringStream(20, 30, i)).getString(), new RandomStringStream(20, 10000, i * i + 2).getString());
         }
     }
@@ -41,7 +41,7 @@ public class TestWild {
 
     private void checkAnswer(ArrayList<Pair<Integer, Integer>> naiveAnswer, ArrayList<Pair<Integer, Integer>> singleWildAnswer) {
         assertEquals(naiveAnswer.size(), singleWildAnswer.size());
-        for(int i = 0; i < naiveAnswer.size(); ++i){
+        for (int i = 0; i < naiveAnswer.size(); ++i) {
             assertEquals(naiveAnswer.get(i), singleWildAnswer.get(i));
         }
     }
