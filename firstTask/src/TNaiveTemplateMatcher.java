@@ -27,7 +27,7 @@ public class TNaiveTemplateMatcher implements MetaTemplateMatcher {
     }
 
     @Override
-    public ArrayList<Pair<Integer, Integer>> MatchStram(ICharStream stream) {
+    public ArrayList<Pair<Integer, Integer>> MatchStream(ICharStream stream) {
         ArrayList<Pair<Integer, Integer>> answer = new ArrayList<Pair<Integer, Integer>>();
         if (templates.size() != 0) {
             search(stream, templates, answer);

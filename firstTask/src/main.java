@@ -3,10 +3,13 @@
  */
 public class main {
     public static void main(String[] args) {
-        TNaiveTemplateMatcher naive = new TNaiveTemplateMatcher();
-        naive.AddTemplate("a");
-        naive.AddTemplate("abdsfsdf");
-        naive.MatchStram(new RandomStream(1000000));
+        TSinglePrependTemplateMatcher prependTemplateMatcher = new TSinglePrependTemplateMatcher();
+        prependTemplateMatcher.AddTemplate("bba");
+        prependTemplateMatcher.MatchStream(new StringStream("bbabb"));
+        prependTemplateMatcher.PrependCharToTemplate('a');
+        prependTemplateMatcher.MatchStream(new StringStream("bbabb"));
+        prependTemplateMatcher.PrependCharToTemplate('b');
+        prependTemplateMatcher.MatchStream(new StringStream("bbabb"));
     }
 
 }

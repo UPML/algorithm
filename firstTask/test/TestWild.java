@@ -12,9 +12,9 @@ import static org.junit.Assert.*;
 public class TestWild {
     @Test
     public void simpleTest() {
-        tested("a", "abacaba");
-        tested("ba", "abacaba");
-        tested("aba", "abacabadabacadaba");
+        tested("a??", "abacaba");
+        tested("b?a", "abacaba");
+        tested("a??ba", "abacabadabacadaba");
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TestWild {
         TWildcardSingleTemplateMatcher wildcardSingleTemplateMatcher = new TWildcardSingleTemplateMatcher();
         naive.AddTemplate(template);
         wildcardSingleTemplateMatcher.AddTemplate(template);
-        checkAnswer(naive.MatchStram(new StringStream(text)), wildcardSingleTemplateMatcher.MatchStram(new StringStream(text)));
+        checkAnswer(naive.MatchStream(new StringStream(text)), wildcardSingleTemplateMatcher.MatchStream(new StringStream(text)));
     }
 
     private void checkAnswer(ArrayList<Pair<Integer, Integer>> naiveAnswer, ArrayList<Pair<Integer, Integer>> singleWildAnswer) {

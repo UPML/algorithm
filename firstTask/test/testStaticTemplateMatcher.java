@@ -1,9 +1,5 @@
 import javafx.util.Pair;
-import jdk.nashorn.internal.ir.annotations.Ignore;
-import org.junit.Assert;
 import org.junit.Test;
-
-import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
@@ -66,7 +62,7 @@ public class testStaticTemplateMatcher {
             naive.AddTemplate(s);
             staticTemplateMatcher.AddTemplate(s);
         }
-        checkAnswer(naive.MatchStram(new StringStream(text)), staticTemplateMatcher.MatchStram(new StringStream(text)));
+        checkAnswer(naive.MatchStream(new StringStream(text)), staticTemplateMatcher.MatchStream(new StringStream(text)));
 
     }
 
@@ -77,7 +73,7 @@ public class testStaticTemplateMatcher {
             naive.AddTemplate(s);
             staticTemplateMatcher.AddTemplate(s);
         }
-        checkAnswer(naive.MatchStram(new StringStream(text)), staticTemplateMatcher.MatchStram(new StringStream(text)));
+        checkAnswer(naive.MatchStream(new StringStream(text)), staticTemplateMatcher.MatchStream(new StringStream(text)));
     }
 
     class pairCompare implements Comparator<Pair<Integer, Integer>> {

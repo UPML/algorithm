@@ -8,6 +8,6 @@ import java.util.ArrayList;
 public interface MetaTemplateMatcher {
     public int AddTemplate(String template);
 
-    public ArrayList<Pair<Integer, Integer>> MatchStram(ICharStream stream);
+    public ArrayList<Pair<Integer, Integer>> MatchStream(ICharStream stream);
 
 }

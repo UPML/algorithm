@@ -10,7 +10,7 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
     ArrayList<Integer> prefixFunctionForTemplate = new ArrayList<Integer>();
     String template = null;
 
-    private ArrayList<Integer> calculatePrefix(String s) {
+    protected ArrayList<Integer> calculatePrefix(String s) {
         int n = (int) s.length();
         ArrayList<Integer> prefix = new ArrayList<Integer>();
         prefix.add(0);
@@ -24,14 +24,19 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
         return prefix;
     }
 
-    private void calculatePrefixForAppend(String s) {
-        int n = (int) s.length();
-        for (int i = n - 2; i < n; ++i) {
-            int j = prefixFunctionForTemplate.get(i - 1);
-            while (j > 0 && s.charAt(i) != s.charAt(j))
+    protected void calculatePrefixForAppend(String s, int alreadyCountPrefixFunction) {
+        if (alreadyCountPrefixFunction == 0) {
+            prefixFunctionForTemplate.add(0, 0);
+        } else {
+            int j = prefixFunctionForTemplate.get(alreadyCountPrefixFunction - 1);
+            while (j > 0 && s.charAt(alreadyCountPrefixFunction) != s.charAt(j))
                 j = prefixFunctionForTemplate.get(j - 1);
-            if (s.charAt(i) == s.charAt(j)) ++j;
-            prefixFunctionForTemplate.add(i, j);
+            if (s.charAt(alreadyCountPrefixFunction) == s.charAt(j)) ++j;
+            if (prefixFunctionForTemplate.size() > alreadyCountPrefixFunction) {
+                prefixFunctionForTemplate.set(alreadyCountPrefixFunction, j);
+            } else {
+                prefixFunctionForTemplate.add(alreadyCountPrefixFunction, j);
+            }
         }
     }
 
@@ -41,14 +46,14 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
             System.err.println("empty template");
             throw new ExceptionInInitializerError();
         }
-        template = templateTmp + (char) (30);
+        template = templateTmp + '$';
         prefixFunctionForTemplate = calculatePrefix(template);
         // write(prefixFunctionForTemplate);
         return template.hashCode();
     }
 
     @Override
-    public ArrayList<Pair<Integer, Integer>> MatchStram(ICharStream stream) {
+    public ArrayList<Pair<Integer, Integer>> MatchStream(ICharStream stream) {
         ArrayList<Pair<Integer, Integer>> answer = new ArrayList<Pair<Integer, Integer>>();
         int alreadyRead = 0;
         int oldPrefixFunction = 0;
@@ -71,13 +76,13 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
         return answer;
     }
 
-    private void writeAnswer(ArrayList<Pair<Integer, Integer>> answer) {
+    protected void writeAnswer(ArrayList<Pair<Integer, Integer>> answer) {
         for (int i = 0; i < answer.size(); ++i) {
             System.out.println(answer.get(i));
         }
     }
 
-    private void write(ArrayList<Integer> arrayList) {
+    protected void write(ArrayList<Integer> arrayList) {
         for (Integer i : arrayList) {
             System.out.print(i + " ");
         }
@@ -93,7 +98,7 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
         }
         template.replace((char) 30, c);
         template += (char) 30;
-        calculatePrefixForAppend(template);
+        calculatePrefixForAppend(template, template.length() - 1);
     }
 
 }

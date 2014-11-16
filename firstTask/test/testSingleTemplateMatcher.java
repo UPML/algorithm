@@ -19,10 +19,34 @@ public class testSingleTemplateMatcher {
 
     @Test
     public void  simpleRandomTest(){
-        for(int i = 0; i < 100; ++i){
+        testedPrepend((new RandomStringStream(2, 3, 1)).getString(), new RandomStringStream(2, 0, 2).getString());
+        testedPrepend((new RandomStringStream(2, 3, 1)).getString(), new RandomStringStream(2, 1, 2).getString());
+        testedPrepend((new RandomStringStream(2, 3, 1)).getString(), new RandomStringStream(2, 2, 2).getString());
+        testedPrepend((new RandomStringStream(2, 3, 1)).getString(), new RandomStringStream(2, 3, 2).getString());
+        for(int i = 0; i < 10000; ++i){
             tested((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 100, i * 2).getString());
-//            System.out.println(new RandomStringStream(10, 100).getString());
-        }
+            testedPrepend((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 100, i * 2).getString());
+       }
+    }
+
+    private void testedPrepend(String template, String text) {
+//        System.out.println(template);
+//        System.out.println(text);
+        TSingleTemplateMatcher singleTemplateMatcher  = new TSingleTemplateMatcher();
+        TSinglePrependTemplateMatcher tSinglePrependTemplateMatcher = new TSinglePrependTemplateMatcher();
+        singleTemplateMatcher.AddTemplate(template);
+        tSinglePrependTemplateMatcher.AddTemplate(template);
+        checkAnswer(singleTemplateMatcher.MatchStream(new StringStream(text)), tSinglePrependTemplateMatcher.MatchStream(new StringStream(text)));
+        singleTemplateMatcher.AddTemplate("a" + template);
+        tSinglePrependTemplateMatcher.PrependCharToTemplate('a');
+        checkAnswer(singleTemplateMatcher.MatchStream(new StringStream(text)), tSinglePrependTemplateMatcher.MatchStream(new StringStream(text)));
+        singleTemplateMatcher.AddTemplate("ba" + template);
+        tSinglePrependTemplateMatcher.PrependCharToTemplate('b');
+        checkAnswer(singleTemplateMatcher.MatchStream(new StringStream(text)), tSinglePrependTemplateMatcher.MatchStream(new StringStream(text)));
+        singleTemplateMatcher.AddTemplate("bbba" + template);
+        tSinglePrependTemplateMatcher.PrependCharToTemplate('b');
+        tSinglePrependTemplateMatcher.PrependCharToTemplate('b');
+        checkAnswer(singleTemplateMatcher.MatchStream(new StringStream(text)), tSinglePrependTemplateMatcher.MatchStream(new StringStream(text)));
     }
 
     @Test
@@ -38,11 +62,11 @@ public class testSingleTemplateMatcher {
         TSingleTemplateMatcher single = new TSingleTemplateMatcher();
         naive.AddTemplate(template);
         single.AddTemplate(template);
-        checkAnswer(naive.MatchStram(new StringStream(text)), single.MatchStram(new StringStream(text)));
+        checkAnswer(naive.MatchStream(new StringStream(text)), single.MatchStream(new StringStream(text)));
         naive = new TNaiveTemplateMatcher();
         naive.AddTemplate(template + "a");
         single.AppendCharToTemplate('a');
-        checkAnswer(naive.MatchStram(new StringStream(text)), single.MatchStram(new StringStream(text)));
+        checkAnswer(naive.MatchStream(new StringStream(text)), single.MatchStream(new StringStream(text)));
     }
 
     private void tested(String template, String text) {
@@ -50,7 +74,7 @@ public class testSingleTemplateMatcher {
         TSingleTemplateMatcher single = new TSingleTemplateMatcher();
         naive.AddTemplate(template);
         single.AddTemplate(template);
-        checkAnswer(naive.MatchStram(new StringStream(text)), single.MatchStram(new StringStream(text)));
+        checkAnswer(naive.MatchStream(new StringStream(text)), single.MatchStream(new StringStream(text)));
     }
 
     private void checkAnswer(ArrayList<Pair<Integer, Integer>> naiveAnswer, ArrayList<Pair<Integer, Integer>> singleAnswer) {
