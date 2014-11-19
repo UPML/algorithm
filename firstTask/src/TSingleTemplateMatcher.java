@@ -72,7 +72,6 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
             }
             ++alreadyRead;
         }
-        //       writeAnswer(answer);
         return answer;
     }
 
