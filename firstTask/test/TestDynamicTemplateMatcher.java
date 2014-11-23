@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kagudkov on 16.11.14.
@@ -42,6 +43,28 @@ public class TestDynamicTemplateMatcher {
 
     }
 
+    @Test
+    public void TimeTest() {
+        TDynamicTemplateMatcher dynamicTemplateMatcher = new TDynamicTemplateMatcher();
+        ArrayList<String> templates = new ArrayList<String>();
+        for (int i = 0; i < 1000; ++i) {
+            String newTemplate = ((new RandomStringStream(20, 100, i * 11)).getString());
+            if (!templates.contains(newTemplate)) {
+                templates.add(newTemplate);
+            }
+        }
+        dynamicTemplateMatcher.setTime(0);
+        for (int i = 0; i < templates.size(); ++i) {
+            dynamicTemplateMatcher.AddTemplate(templates.get(i));
+        }
+//        System.err.println(dynamicTemplateMatcher.getTime() + " ");
+        assertTrue(dynamicTemplateMatcher.getTime() < 100000 * 12 * 5);
+        String text = (new RandomStringStream(20, 100000, 23)).getString();
+        dynamicTemplateMatcher.setTime(0);
+        dynamicTemplateMatcher.MatchStream(new StringStream(text));
+//        System.err.println(dynamicTemplateMatcher.getTime());
+        assertTrue(dynamicTemplateMatcher.getTime() < 100000 * 12  * 5);
+    }
 
     class pairCompare implements Comparator<Pair<Integer, Integer>> {
         @Override

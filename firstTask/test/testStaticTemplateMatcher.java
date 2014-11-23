@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kagudkov on 14.10.14.
@@ -75,6 +76,30 @@ public class testStaticTemplateMatcher {
             staticTemplateMatcher.AddTemplate(s);
         }
         checkAnswer(naive.MatchStream(new StringStream(text)), staticTemplateMatcher.MatchStream(new StringStream(text)));
+    }
+
+
+    @Test
+    public void TimeTest() {
+        TStaticTemplateMatcher staticTemplateMatcher = new TStaticTemplateMatcher();
+        ArrayList<String> templates = new ArrayList<String>();
+        for (int i = 0; i < 1000; ++i) {
+            String newTemplate = ((new RandomStringStream(20, 50, i * 13)).getString());
+            if (!templates.contains(newTemplate)) {
+                templates.add(newTemplate);
+            }
+        }
+        staticTemplateMatcher.setTime(0);
+        for (int i = 0; i < templates.size(); ++i) {
+            staticTemplateMatcher.AddTemplate(templates.get(i));
+        }
+//        System.err.println(staticTemplateMatcher.getTime());
+        assertTrue(staticTemplateMatcher.getTime() < (long) 50 * 1000 * 5);
+        String text = (new RandomStringStream(20, 100000, 23)).getString();
+        staticTemplateMatcher.setTime(0);
+        staticTemplateMatcher.MatchStream(new StringStream(text));
+//        System.err.println(staticTemplateMatcher.getTime());
+        assertTrue(staticTemplateMatcher.getTime() < (long) 100000 * 3);
     }
 
     class pairCompare implements Comparator<Pair<Integer, Integer>> {
