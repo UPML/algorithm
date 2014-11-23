@@ -11,7 +11,7 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
     String template = null;
 
     protected ArrayList<Integer> calculatePrefix(String s) {
-        int n = (int) s.length();
+        int n = s.length();
         ArrayList<Integer> prefix = new ArrayList<Integer>();
         prefix.add(0);
         for (int i = 1; i < n; ++i) {
@@ -95,7 +95,7 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
             System.err.println("empty template");
             throw new ExceptionInInitializerError();
         }
-        template.replace((char) 30, c);
+        template = template.replace((char) 30, c);
         template += (char) 30;
         calculatePrefixForAppend(template, template.length() - 1);
     }

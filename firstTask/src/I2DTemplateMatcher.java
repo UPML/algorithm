@@ -49,7 +49,7 @@ public interface I2DTemplateMatcher {
         }
 
         public int getInt(int stringNumber, int index) {
-            return Integer.valueOf(getChar(stringNumber, index));
+            return getChar(stringNumber, index);
         }
 
         public int getHashForSubMatrix(int indexTopLine, int indexLeftColumn, int indexDownLine, int indexRightColumn) {
@@ -73,7 +73,7 @@ public interface I2DTemplateMatcher {
 //                   System.out.print(getHashForSubMatrix(i, j, i, j) + " ");
 //                }
 //            }
-            for(int i = 0; i < size; ++i) {
+            for (int i = 0; i < size; ++i) {
                 System.out.println(strings[i]);
             }
             System.out.println();

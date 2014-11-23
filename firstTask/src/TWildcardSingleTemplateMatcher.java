@@ -52,7 +52,7 @@ public class TWildcardSingleTemplateMatcher extends TSingleTemplateMatcher {
 
     @Override
     protected ArrayList<Integer> calculatePrefix(String s) {
-        int n = (int) s.length();
+        int n = s.length();
         ArrayList<Integer> prefix = new ArrayList<Integer>();
         prefix.add(0);
         for (int i = 1; i < n; ++i) {

@@ -13,6 +13,17 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
 
     public TStaticTemplateMatcher() {
         init();
+        time++;
+    }
+
+    private int time;
+
+    public void setTime(int timeTmp) {
+        time = timeTmp;
+    }
+
+    public int getTime() {
+        return time;
     }
 
     private class vertex {
@@ -28,6 +39,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
         public vertex(Integer parentTmp, Integer sufLinkTmp) {
             parent = parentTmp;
             sufLink = sufLinkTmp;
+            ++time;
             sufLinkAnswer = -1;
             for (int i = 0; i < 255; ++i) {
                 go.add(i, -1);
@@ -44,21 +56,23 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
     private void init() {
         vertexes.add(new vertex(-1, -1));
         size = 1;
+        time = 0;
     }
 
 
     private int get_link(int v) {
         if (vertexes.get(v).sufLink == -1)
-            if (v == 0 || vertexes.get(v).parent == 0)
-                vertexes.get(v).sufLink = 0;
-            else {
-                int nextStep = go(get_link(vertexes.get(v).parent), vertexes.get(v).parenChar);
-                vertexes.get(v).sufLink = nextStep;
-            }
+            ++time;
+        if (v == 0 || vertexes.get(v).parent == 0)
+            vertexes.get(v).sufLink = 0;
+        else {
+            vertexes.get(v).sufLink = go(get_link(vertexes.get(v).parent), vertexes.get(v).parenChar);
+        }
         return vertexes.get(v).sufLink;
     }
 
     private int getAnswerLink(int v) {
+        ++time;
         if (vertexes.get(v).leaf) {
             return v;
         }
@@ -69,6 +83,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
     }
 
     private int go(int v, char c) {
+        ++time;
         if (vertexes.get(v).go.get(c) == -1)
             if (vertexes.get(v).next.get(c) != -1)
                 vertexes.get(v).go.set(c, vertexes.get(v).next.get(c));
@@ -82,6 +97,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
 
     @Override
     public int AddTemplate(String template) {
+        ++time;
         if (alreadyExist.contains(template)) {
             throw new KeyAlreadyExistsException();
         }
@@ -91,6 +107,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
         }
         int v = 0;
         for (int i = 0; i < template.length(); ++i) {
+            ++time;
             char c = template.charAt(i);// = s[i] - 'a';
             if (vertexes.get(v).next.get(c) == -1) {
                 vertexes.add(new vertex(v, -1));
@@ -108,6 +125,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
 
     @Override
     public ArrayList<Pair<Integer, Integer>> MatchStream(ICharStream stream) {
+        ++time;
         countAnswer(stream);
         return getAnswer();
     }
@@ -119,6 +137,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
     private void countAnswer(ICharStream stream) {
         build();
         while (!stream.IsEmpty()) {
+            ++time;
             nextChar(stream.GetChar());
         }
     }
@@ -132,9 +151,11 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
         ArrayList<Pair<Integer, Integer>> answer = new ArrayList<Pair<Integer, Integer>>();
         int alreadyRead = 0;
         for (int i = 1; i < size; ++i) {
+            ++time;
             get_link(i);
         }
         for (int i = 1; i < size; ++i) {
+            ++time;
             if (vertexes.get(i).sufLinkAnswer == -1) {
                 vertexes.get(i).sufLinkAnswer = getAnswerLink(vertexes.get(i).sufLink);
             }
@@ -143,9 +164,11 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
 
     protected void nextChar(char currentElement) {
         currentVertex = go(currentVertex, currentElement);
+        ++time;
         if (currentVertex != -1) {
             int tmp = currentVertex;
             while (tmp != 0 && tmp != -1) {
+                ++time;
                 if (vertexes.get(tmp).leaf) {
                     answer.add(new Pair<Integer, Integer>(vertexes.get(tmp).numberOfTemplate, alreadyRead));
                 }
@@ -155,7 +178,7 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
             currentVertex = 0;
         }
         ++alreadyRead;
-
+        ++time;
     }
 
 
