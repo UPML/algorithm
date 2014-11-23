@@ -99,7 +99,7 @@ public class testStaticTemplateMatcher {
         staticTemplateMatcher.setTime(0);
         staticTemplateMatcher.MatchStream(new StringStream(text));
 //        System.err.println(staticTemplateMatcher.getTime());
-        assertTrue(staticTemplateMatcher.getTime() < (long) 100000 * 3);
+        assertTrue(staticTemplateMatcher.getTime() < (long) 100000 * 10);
     }
 
     class pairCompare implements Comparator<Pair<Integer, Integer>> {

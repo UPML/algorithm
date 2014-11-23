@@ -61,8 +61,8 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
 
 
     private int get_link(int v) {
+        ++time;
         if (vertexes.get(v).sufLink == -1)
-            ++time;
         if (v == 0 || vertexes.get(v).parent == 0)
             vertexes.get(v).sufLink = 0;
         else {
