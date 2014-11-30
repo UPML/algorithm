@@ -55,27 +55,28 @@ public class testSingleTemplateMatcher {
             testedAppend((new RandomStringStream(20, 30, i * 3)).getString(), new RandomStringStream(20, 10000, i * i * 21).getString());
         }
     }
+
     @Test
     public void TimeTest() {
         TSingleTemplateMatcher single = new TSingleTemplateMatcher();
         String template = (new RandomStringStream(20, 1000, 1)).getString();
         long timer = System.currentTimeMillis();
-        for(int i = 0; i < 10000; ++i) {
+        for (int i = 0; i < 10000; ++i) {
             single.AddTemplate(template);
         }
         timer = System.currentTimeMillis() - timer;
-        assertTrue(timer < (long)2000);
+        assertTrue(timer < (long) 2000);
         String text = (new RandomStringStream(20, 10000, 23)).getString();
         timer = System.currentTimeMillis();
-        for(int i = 0; i < 10000; ++i){
+        for (int i = 0; i < 10000; ++i) {
             single.AddTemplate((new RandomStringStream(20, 30, i)).getString());
             single.MatchStream(new StringStream(text));
         }
         timer = System.currentTimeMillis() - timer;
-        assertTrue(timer < (long)1000);
+        assertTrue(timer < (long) 1000);
     }
 
-        private void testedAppend(String template, String text) {
+    private void testedAppend(String template, String text) {
         TNaiveTemplateMatcher naive = new TNaiveTemplateMatcher();
         TSingleTemplateMatcher single = new TSingleTemplateMatcher();
         naive.AddTemplate(template);

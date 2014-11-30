@@ -1,8 +1,8 @@
 import javafx.util.Pair;
 import org.junit.Test;
 
-import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -13,22 +13,31 @@ public class TestWild {
     @Test
     public void simpleTest() {
         tested("a??", "abacaba");
-        tested("b?a", "abacaba");
+        tested("?a", "abacaba");
         tested("a??ba", "abacabadabacadaba");
     }
 
     @Test
     public void simpleRandomTest() {
         for (int i = 0; i < 100; ++i) {
-            tested((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 100, i * 2).getString());
+            testedQuestion((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 5, i * 2).getString());
         }
     }
 
     @Test
     public void largeRandomTest() {
-        for (int i = 0; i < 10; ++i) {
-            tested((new RandomStringStream(20, 30, i)).getString(), new RandomStringStream(20, 10000, i * i + 2).getString());
+        for (int i = 0; i < 100; ++i) {
+            testedQuestion((new RandomStringStream(20, 30, i)).getString(), new RandomStringStream(20, 10000, i * i + 2).getString());
         }
+    }
+
+    private void testedQuestion(String template, String text) {
+        int numberOfQuestion = (new Random()).nextInt(template.length());
+        StringBuilder newString = new StringBuilder(template);
+        for(int i = 0; i < numberOfQuestion; ++i){
+            newString.insert((new Random()).nextInt(newString.length()), '?');
+        }
+        tested(newString.toString(), text);
     }
 
     private void tested(String template, String text) {

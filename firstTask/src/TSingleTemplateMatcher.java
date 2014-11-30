@@ -52,29 +52,43 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
         return template.hashCode();
     }
 
+    ArrayList<Pair<Integer, Integer>> answer = new ArrayList<Pair<Integer, Integer>>();
+    private int alreadyRead;
+    private int oldPrefixFunction;
+
     @Override
     public ArrayList<Pair<Integer, Integer>> MatchStream(ICharStream stream) {
-        ArrayList<Pair<Integer, Integer>> answer = new ArrayList<Pair<Integer, Integer>>();
-        int alreadyRead = 0;
-        int oldPrefixFunction = 0;
+        beforeNewMatchStream();
         while (!stream.IsEmpty()) {
-            int currentPrefixFunction = oldPrefixFunction;
             char currentElement = stream.GetChar();
-            while (currentPrefixFunction > 0 && currentElement != template.charAt(currentPrefixFunction)) {
-                currentPrefixFunction = prefixFunctionForTemplate.get(currentPrefixFunction - 1);
-            }
-            if (currentElement == template.charAt(currentPrefixFunction) && currentPrefixFunction < template.length()) {
-                currentPrefixFunction++;
-            }
-            oldPrefixFunction = currentPrefixFunction;
-            if (currentPrefixFunction == template.length() - 1) {
-                answer.add(new Pair<Integer, Integer>(0, alreadyRead));
-            }
-            ++alreadyRead;
+            nextChar(currentElement);
         }
         return answer;
     }
 
+    public void nextChar(char currentElement) {
+        int currentPrefixFunction = oldPrefixFunction;
+        while (currentPrefixFunction > 0 && currentElement != template.charAt(currentPrefixFunction)) {
+            currentPrefixFunction = prefixFunctionForTemplate.get(currentPrefixFunction - 1);
+        }
+        if (currentElement == template.charAt(currentPrefixFunction) && currentPrefixFunction < template.length()) {
+            currentPrefixFunction++;
+        }
+        oldPrefixFunction = currentPrefixFunction;
+        if (currentPrefixFunction == template.length() - 1) {
+            answer.add(new Pair<Integer, Integer>(0, alreadyRead));
+        }
+        ++alreadyRead;
+    }
+
+    public void beforeNewMatchStream() {
+        answer.clear();
+        alreadyRead = 0;
+        oldPrefixFunction = 0;
+    }
+    public int getAlreadyRead() {
+        return alreadyRead;
+    }
     protected void writeAnswer(ArrayList<Pair<Integer, Integer>> answer) {
         for (int i = 0; i < answer.size(); ++i) {
             System.out.println(answer.get(i));
