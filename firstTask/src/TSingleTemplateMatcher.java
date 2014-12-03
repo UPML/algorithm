@@ -90,8 +90,8 @@ public class TSingleTemplateMatcher implements MetaTemplateMatcher {
         return alreadyRead;
     }
     protected void writeAnswer(ArrayList<Pair<Integer, Integer>> answer) {
-        for (int i = 0; i < answer.size(); ++i) {
-            System.out.println(answer.get(i));
+        for (Pair<Integer, Integer> anAnswer : answer) {
+            System.out.println(anAnswer);
         }
     }
 

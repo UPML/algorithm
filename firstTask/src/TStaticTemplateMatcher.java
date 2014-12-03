@@ -147,9 +147,6 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
     }
 
     protected void build() {
-        int currentVertex = 0;
-        ArrayList<Pair<Integer, Integer>> answer = new ArrayList<Pair<Integer, Integer>>();
-        int alreadyRead = 0;
         for (int i = 1; i < size; ++i) {
             ++time;
             get_link(i);

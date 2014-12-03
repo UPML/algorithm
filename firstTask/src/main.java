@@ -1,6 +1,4 @@
-import javafx.util.Pair;
 
-import java.util.ArrayList;
 
 /**
  * Created by kagudkov on 10.10.14.
