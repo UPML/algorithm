@@ -63,11 +63,11 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
     private int get_link(int v) {
         ++time;
         if (vertexes.get(v).sufLink == -1)
-        if (v == 0 || vertexes.get(v).parent == 0)
-            vertexes.get(v).sufLink = 0;
-        else {
-            vertexes.get(v).sufLink = go(get_link(vertexes.get(v).parent), vertexes.get(v).parenChar);
-        }
+            if (v == 0 || vertexes.get(v).parent == 0)
+                vertexes.get(v).sufLink = 0;
+            else {
+                vertexes.get(v).sufLink = go(get_link(vertexes.get(v).parent), vertexes.get(v).parenChar);
+            }
         return vertexes.get(v).sufLink;
     }
 
@@ -125,6 +125,8 @@ public class TStaticTemplateMatcher implements MetaTemplateMatcher {
 
     @Override
     public ArrayList<Pair<Integer, Integer>> MatchStream(ICharStream stream) {
+        answer.clear();
+        alreadyRead = 0;
         ++time;
         countAnswer(stream);
         return getAnswer();
