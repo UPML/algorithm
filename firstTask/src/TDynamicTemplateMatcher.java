@@ -39,18 +39,22 @@ public class TDynamicTemplateMatcher extends TStaticTemplateMatcher implements M
             used.set(size, true);
             staticTemplateMatchers.set(size, newStaticTemplateMatcher);
         }
+        time -= staticTemplateMatchers.get(size).getTime();
+        staticTemplateMatchers.get(size).build();
+        time += staticTemplateMatchers.get(size).getTime();
+
     }
 
     @Override
     public ArrayList<Pair<Integer, Integer>> MatchStream(ICharStream stream) {
-        for (int i = 0; i < staticTemplateMatchers.size(); ++i) {
+        /*for (int i = 0; i < staticTemplateMatchers.size(); ++i) {
             ++time;
             if (used.get(i)) {
                 time -= staticTemplateMatchers.get(i).getTime();
                 staticTemplateMatchers.get(i).build();
                 time += staticTemplateMatchers.get(i).getTime();
             }
-        }
+        }*/
         while (!stream.IsEmpty()) {
             char currentElement = stream.GetChar();
             ++time;
