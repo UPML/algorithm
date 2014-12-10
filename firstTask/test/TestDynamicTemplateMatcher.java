@@ -55,8 +55,8 @@ public class TestDynamicTemplateMatcher {
             }
         }
         dynamicTemplateMatcher.setTime(0);
-        for (int i = 0; i < templates.size(); ++i) {
-            dynamicTemplateMatcher.AddTemplate(templates.get(i));
+        for (String template : templates) {
+            dynamicTemplateMatcher.AddTemplate(template);
         }
 //        System.err.println(dynamicTemplateMatcher.getTime() + " ");
         assertTrue(dynamicTemplateMatcher.getTime() < 100000 * 12 * 5);

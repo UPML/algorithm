@@ -3,7 +3,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kagudkov on 12.10.14.
@@ -24,13 +25,17 @@ public class testSingleTemplateMatcher {
         testedPrepend((new RandomStringStream(2, 3, 1)).getString(), new RandomStringStream(2, 3, 2).getString());
         for (int i = 0; i < 10000; ++i) {
             tested((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 100, i * 2).getString());
-            testedPrepend((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 100, i * 2).getString());
+            testedPrepend((new RandomStringStream(2, 3, i)).getString(), new RandomStringStream(2, 5, i * 2).getString());
         }
     }
 
     private void testedPrepend(String template, String text) {
 //        System.out.println(template);
 //        System.out.println(text);
+
+        if (template.equals("bba")) {
+            template = "bba";
+        }
         TSingleTemplateMatcher singleTemplateMatcher = new TSingleTemplateMatcher();
         TSinglePrependTemplateMatcher tSinglePrependTemplateMatcher = new TSinglePrependTemplateMatcher();
         singleTemplateMatcher.AddTemplate(template);

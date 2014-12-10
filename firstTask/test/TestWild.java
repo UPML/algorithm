@@ -4,7 +4,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kagudkov on 19.10.14.
@@ -34,7 +34,7 @@ public class TestWild {
     private void testedQuestion(String template, String text) {
         int numberOfQuestion = (new Random()).nextInt(template.length());
         StringBuilder newString = new StringBuilder(template);
-        for(int i = 0; i < numberOfQuestion; ++i){
+        for (int i = 0; i < numberOfQuestion; ++i) {
             newString.insert((new Random()).nextInt(newString.length()), '?');
         }
         tested(newString.toString(), text);

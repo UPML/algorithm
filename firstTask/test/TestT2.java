@@ -2,7 +2,9 @@ import com.sun.org.apache.xml.internal.security.signature.ReferenceNotInitialize
 import javafx.util.Pair;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,9 +14,9 @@ import static org.junit.Assert.assertEquals;
 public class TestT2 {
     @Test
     public void simpleTest() throws ReferenceNotInitializedException {
-        for(int i = 1; i < 100; ++i) {
+        for (int i = 1; i < 100; ++i) {
             I2DTemplateMatcher.matrix tmpString = randTable(i);
-            for(int j = 1; j <= i; ++j) {
+            for (int j = 1; j <= i; ++j) {
                 I2DTemplateMatcher.matrix tmpTemplate = randTable(j);
 //                tmpString.write();
 //                tmpTemplate.write();
@@ -30,12 +32,13 @@ public class TestT2 {
 
     private I2DTemplateMatcher.matrix randTable(int size) {
         String[] arrayString = new String[size];
-        for(int i = 0; i < size; ++i) {
-            RandomStringStream stringStream = new RandomStringStream(10, size, i  * size);
+        for (int i = 0; i < size; ++i) {
+            RandomStringStream stringStream = new RandomStringStream(10, size, i * size);
             arrayString[i] = stringStream.getString();
         }
         return new I2DTemplateMatcher.matrix(arrayString, arrayString.length);
     }
+
     class pairCompare implements Comparator<Pair<Integer, Integer>> {
         @Override
         public int compare(Pair<Integer, Integer> a, Pair<Integer, Integer> b) {

@@ -90,8 +90,8 @@ public class testStaticTemplateMatcher {
             }
         }
         staticTemplateMatcher.setTime(0);
-        for (int i = 0; i < templates.size(); ++i) {
-            staticTemplateMatcher.AddTemplate(templates.get(i));
+        for (String template : templates) {
+            staticTemplateMatcher.AddTemplate(template);
         }
 //        System.err.println(staticTemplateMatcher.getTime());
         assertTrue(staticTemplateMatcher.getTime() < (long) 50 * 1000 * 5);
