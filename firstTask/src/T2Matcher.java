@@ -59,7 +59,7 @@ public class T2Matcher implements I2DTemplateMatcherWithoutHash {
             }
             ArrayList<Pair<Integer, Integer>> answerSingle = singleTemplateMatcher.MatchStream(new IIntegerStream(column));
             for (Pair<Integer, Integer> pair : answerSingle) {
-                answer.add(new Pair(pair.getValue(), i));
+                answer.add(new Pair<Integer, Integer>(pair.getValue(), i));
             }
         }
         return answer;

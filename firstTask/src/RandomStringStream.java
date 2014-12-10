@@ -12,18 +12,18 @@ public class RandomStringStream implements ICharStream {
         return currentString;
     }
 
-    public RandomStringStream(Integer numberOfLetter, Integer length, Integer parametrForRandom) {
+    public RandomStringStream(Integer numberOfLetter, Integer length, Integer parameterForRandom) {
         currentIndex = 0;
-        currentString = RandomString(numberOfLetter, length, parametrForRandom);
+        currentString = RandomString(numberOfLetter, length, parameterForRandom);
     }
 
-    private String RandomString(Integer numberOfLetter, Integer length, Integer parametrForRandom) {
+    private String RandomString(Integer numberOfLetter, Integer length, Integer parameterForRandom) {
         String s = "";
         if (numberOfLetter > 255 - 31) {
             System.err.println("numberOfLetter is excessive");
             throw new ExceptionInInitializerError();
         }
-        Random random = new Random(parametrForRandom);
+        Random random = new Random(parameterForRandom);
         for (int i = 0; i < length; ++i) {
             int p = Math.abs(random.nextInt(numberOfLetter)) + 'a';///+ 32
             s += (char) p;

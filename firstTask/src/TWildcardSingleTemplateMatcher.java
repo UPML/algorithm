@@ -62,7 +62,7 @@ public class TWildcardSingleTemplateMatcher implements MetaTemplateMatcher {
     public ArrayList<Pair<Integer, Integer>> MatchStream(ICharStream stream) {
         ArrayList<Pair<Integer, Integer>> answer = answer(stream);
         for (int i = 0; i < answer.size(); ++i) {
-            answer.set(i, new Pair(answer.get(i).getKey(), answer.get(i).getValue()
+            answer.set(i, new Pair<Integer, Integer>(answer.get(i).getKey(), answer.get(i).getValue()
                     + templates.get(templates.size() - 1).questionAfter));
         }
         while (answer.size() > 0 && answer.get(0).getValue() < templateNew.length() - 1) {
